@@ -1,0 +1,22 @@
+name: 'node-install'
+
+inputs:
+    node-version:
+        required: true
+
+runs:
+    using: 'composite'
+
+    steps:
+        - name: 'Install Node'
+          uses: 'actions/setup-node@v3'
+          with:
+              node-version: '${{ inputs.node-version }}'
+              cache: 'yarn'
+              
+        - name: 'Install app'
+          shell: 'bash'
+          run: |
+              npm install --global yarn
+              yarn set version berry
+              yarn install
